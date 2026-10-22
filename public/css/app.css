@@ -1,0 +1,83 @@
+body {
+  min-height: 100vh;
+  /* Popup */ }
+  body main {
+    min-height: 100vh;
+    padding-bottom: 50px;
+    padding-top: 56px; }
+  body .footer {
+    margin-top: -35px; }
+    body .footer ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0; }
+      body .footer ul li {
+        padding: 2px 15px 5px 15px; }
+      body .footer ul a {
+        color: #000;
+        font-size: 12px;
+        text-decoration: none; }
+  body #users-table th a {
+    color: #212529; }
+  body #doc_a_imprimer .item {
+    padding-bottom: 25px; }
+    body #doc_a_imprimer .item a {
+      display: block;
+      text-align: center; }
+      body #doc_a_imprimer .item a img {
+        border: 1px solid #000;
+        padding: 5px;
+        display: block;
+        height: auto;
+        max-width: 100%;
+        margin-bottom: 10px; }
+  body #bg_popup_lic_prof {
+    background-color: rgba(0, 0, 0, 0.65);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1; }
+    body #bg_popup_lic_prof .popup_lic_prof {
+      background-color: #FFF;
+      padding: 25px;
+      max-width: 600px;
+      width: 95%; }
+      body #bg_popup_lic_prof .popup_lic_prof p {
+        color: #000;
+        font-size: 16px;
+        margin-bottom: 20px; }
+    body #bg_popup_lic_prof.d-none {
+      display: none; }
+  body .lst_activites {
+    margin-top: 15px; }
+  body .lst_activites_eleves {
+    padding: 6px 12px; }
+  body #tableau_resultats table.table {
+    width: auto; }
+  body #tableau_resultats tr th {
+    font-size: 0.9rem; }
+  body #tableau_resultats tr td {
+    font-size: 0.9rem; }
+  body #tableau_resultats tr.themes_activites th {
+    white-space: nowrap; }
+  body #tableau_resultats tr.row_nom td {
+    vertical-align: middle; }
+    body #tableau_resultats tr.row_nom td:first-child {
+      line-height: 1.1;
+      min-width: 140px; }
+  body #tableau_resultats tr.nom_activites td {
+    line-height: 1.1;
+    vertical-align: bottom; }
+  body #tableau_resultats tr.seuil_de_reussite th, body #tableau_resultats tr.seuil_de_reussite td {
+    line-height: 1.1; }
+  body #tableau_resultats .bloc_theme tr.row_nom {
+    vertical-align: middle; }
+
+/*# sourceMappingURL=app.css.map */
