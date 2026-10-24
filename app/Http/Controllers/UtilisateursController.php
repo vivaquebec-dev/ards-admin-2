@@ -21,10 +21,22 @@ class UtilisateursController extends Controller
      */
     public function index()
     {
-        $utilisateurs = User::all();
+        $recherche = trim((string) Request::query('recherche', ''));
+
+        $utilisateurs = User::query()
+            ->when($recherche !== '', function ($query) use ($recherche) {
+                $query->where(function ($query) use ($recherche) {
+                    $query->where('nom', 'like', "%{$recherche}%")
+                        ->orWhere('prenom', 'like', "%{$recherche}%")
+                        ->orWhere('email', 'like', "%{$recherche}%");
+                });
+            })
+            ->orderBy('nom')
+            ->orderBy('prenom')
+            ->get();
 
 		if (Auth::user()->id_type_usager ==1) {
-			 return view('utilisateurs.index', compact('utilisateurs'));
+			 return view('utilisateurs.index', compact('utilisateurs', 'recherche'));
 		} else {
 			return redirect('/');
 		}

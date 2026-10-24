@@ -5,6 +5,21 @@
         <div class="col-12">
             <h1>Gestion des utilisateurs</h1>
             <p><a href="utilisateurs/create" class="btn btn-primary mt-4">Ajouter un utilisateur</a></p>
+            <form method="GET" action="{{ url('utilisateurs') }}" class="mb-4">
+                <div class="input-group">
+                    <input
+                        type="search"
+                        name="recherche"
+                        value="{{ $recherche }}"
+                        class="form-control"
+                        placeholder="Rechercher par nom, prénom ou courriel"
+                        aria-label="Rechercher un utilisateur"
+                    >
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-secondary">Rechercher</button>
+                    </div>
+                </div>
+            </form>
             <table class="table table-bordered" id="users-table">
                 <thead>
                     <tr>

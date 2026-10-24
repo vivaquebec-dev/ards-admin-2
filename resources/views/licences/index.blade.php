@@ -5,6 +5,23 @@
         <div class="col-12">
             <h1>Gestion des licenses</h1>
             <p><a href="/licences/create" class="btn btn-primary mt-4">Ajouter une licence</a></p>
+            <form method="GET" action="{{ url('licences') }}" class="mb-4">
+                <input type="hidden" name="sort" value="{{ request('sort') }}">
+                <input type="hidden" name="order" value="{{ request('order') }}">
+                <div class="input-group">
+                    <input
+                        type="search"
+                        name="recherche"
+                        value="{{ $recherche }}"
+                        class="form-control"
+                        placeholder="Rechercher par organisation, nom ou courriel"
+                        aria-label="Rechercher une licence"
+                    >
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-secondary">Rechercher</button>
+                    </div>
+                </div>
+            </form>
             <?php		
                 $ordreOrg = $ordreNom = "asc";
                 if (isset($_GET['sort'])) {

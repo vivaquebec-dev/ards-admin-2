@@ -6,4 +6,4 @@ Homestead.json
 
 public/sync_lic_inact_mailchimp.php
 public/sync_lic_act_mailchimp.php
-storage/logs/laravel.log
+storage/logs/*.log

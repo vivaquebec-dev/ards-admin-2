@@ -30,24 +30,29 @@ class LicencesController extends Controller
     public function index()
     {
 
-        $licences = Licence::all();
-		
-		if (isset($_GET['sort'])) {
-			if (!isset($_GET['order'])) {
-				$ordre = "asc";
-			} else {
-				$ordre = $_GET['order'];
-			}
+        $recherche = trim((string) Request::query('recherche', ''));
+        $sort = Request::query('sort');
+        $ordre = Request::query('order') === 'desc' ? 'desc' : 'asc';
 
-			if ($_GET['sort']=="org") {
-        		$licences = Licence::orderBy('nom_organisation', $ordre)->orderBy('id_licence', "asc")->get();
-			} elseif ($_GET['sort']=="nom") {
-        		$licences = Licence::orderBy('nom_contact', $ordre)->orderBy('id_licence', "asc")->get();
-			}
-		}
+        $licences = Licence::query()
+            ->when($recherche !== '', function ($query) use ($recherche) {
+                $query->where(function ($query) use ($recherche) {
+                    $query->where('nom_organisation', 'like', "%{$recherche}%")
+                        ->orWhere('nom_contact', 'like', "%{$recherche}%")
+                        ->orWhere('prenom_contact', 'like', "%{$recherche}%")
+                        ->orWhere('courriel', 'like', "%{$recherche}%");
+                });
+            })
+            ->when($sort === 'org', function ($query) use ($ordre) {
+                $query->orderBy('nom_organisation', $ordre)->orderBy('id_licence');
+            })
+            ->when($sort === 'nom', function ($query) use ($ordre) {
+                $query->orderBy('nom_contact', $ordre)->orderBy('id_licence');
+            })
+            ->get();
 
 		if (Auth::user()->id_type_usager ==1) {
-			return view('licences.index', compact('licences'));
+			return view('licences.index', compact('licences', 'recherche'));
 		} else {
 			return redirect('/');
 		}
