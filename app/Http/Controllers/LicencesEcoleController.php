@@ -280,7 +280,9 @@ class LicencesEcoleController extends Controller
 
         $user->email = $input['nom_utilisateur'];
 
-        $user->password = $input['mot_de_passe'];
+        if (!empty($input['mot_de_passe'])) {
+            $user->password = bcrypt($input['mot_de_passe']);
+        }
 
 
 

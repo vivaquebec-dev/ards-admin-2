@@ -8,7 +8,7 @@ if( ini_get('allow_url_fopen') ) {
 exit;
 	$host = "localhost";
 	$user = "programaction";
-	$pass = "XJaMEJ3ZRUn";
+	$pass = "#";
 	$dbname = "rds";
 	
 	if ($_SERVER['SERVER_NAME']=="localhost")  {

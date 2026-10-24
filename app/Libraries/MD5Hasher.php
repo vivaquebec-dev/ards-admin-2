@@ -1,5 +1,5 @@
-<?php
-class MD5Hasher implements Illuminate\Contracts\Hashing\Hasher {
+<?phpnamespace App\Libraries;use Illuminate\Contracts\Hashing\Hasher;
+class MD5Hasher implements Hasher {    public function info($hashedValue) {        return [            'algo' => 'md5',            'algoName' => 'md5',            'options' => [],        ];    }
     /**
      * Hash the given value.
      *
@@ -31,4 +31,4 @@ class MD5Hasher implements Illuminate\Contracts\Hashing\Hasher {
     public function needsRehash($hashedValue, array $options = array()) {
         return false;
     }
-}
+}

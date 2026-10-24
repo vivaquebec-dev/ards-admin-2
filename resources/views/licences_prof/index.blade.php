@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-    <div id="bg_popup_lic_prof" class="<?php if (isset($_COOKIE["licprof_consent"]) && $_COOKIE["licprof_consent"] == 1) echo 'd-none'; ?>">
+    <div id="bg_popup_lic_prof" class="{{ request()->cookie('licprof_consent') === '1' ? 'd-none' : '' }}">
         <div class="popup_lic_prof">
             <p>La sélection des activités comme mode de fonctionnement généralisé empêche l'élève de progresser à son rythme. Toujours utiliser la sélection des activités pour ses élèves peut nuire au bon fonctionnement du jeu. La sélection des activités doit être utilisée occasionnellement et préférablement pour peu d'élèves à la fois. Cette option a été ajoutée au Royaume des sons pour permettre à l'enseignant(e) de vérifier si l'élève maîtrise tel ou tel objectif de la conscience phonologique. </p>
             <button class="accept_popup_lic_prof">J'ai compris</button>
@@ -47,19 +47,19 @@
         const consentementElement = document.getElementById('bg_popup_lic_prof');
 
         if (consentementElement) {
-            consentementElement.remove();
-            
-            fetch('ajax_consent.php', {
+            fetch('{{ route('licences_prof.consent') }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 },
-                body: JSON.stringify({ action: 'accept' }),
             })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
+
+                consentementElement.remove();
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);

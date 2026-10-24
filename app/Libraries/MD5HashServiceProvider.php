@@ -1,12 +1,12 @@
-<?php
-class MD5HashServiceProvider extends Illuminate\Support\ServiceProvider {
+<?phpnamespace App\Libraries;use Illuminate\Support\ServiceProvider;
+class MD5HashServiceProvider extends ServiceProvider {
     /**
      * Register the service provider.
      *
      * @return void
      */
     public function register() {
-        $this->app['hash'] = $this->app->share(function () {
+        $this->app->singleton('hash', function () {
             return new MD5Hasher();
         });
     }
@@ -18,4 +18,4 @@ class MD5HashServiceProvider extends Illuminate\Support\ServiceProvider {
     public function provides() {
         return array('hash');
     }
-}
+}

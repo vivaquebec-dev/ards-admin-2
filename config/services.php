@@ -17,7 +17,7 @@ return [
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
-    ],
+    ],    'cyberimpact' => [        'token' => env('CYBERIMPACT_TOKEN'),    ],
 
     'mandrill' => [
         'secret' => env('MANDRILL_SECRET'),

@@ -19,8 +19,7 @@ class LicencesController extends Controller
 
     public function __construct()
     {
-        // Initialisation de la variable
-        $this->cyberImpactToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJiZGM1ODY5ZWFlMDY5NTRmZjEyZmM0MzEyODE3MGM0MyIsImlzcyI6IkN5YmVyaW1wYWN0IEFwcGxpY2F0aW9uIiwiYXVkIjoiYXBwLmN5YmVyaW1wYWN0LmNvbSIsImlhdCI6MTc2MjIxODcwMSwibmJmIjowLCJyb2xlIjoiYWRtaW4iLCJjaWQiOjU5Mzk5LCJmbiI6Ik1hcmllIiwibG4iOiJNb3lhbCIsImVtIjoiaW5mb0BhdXJveWF1bWVkZXNzb25zLmNvbSIsInN1YiI6NzY5MjgsInVzciI6ImluZm9AYXVyb3lhdW1lZGVzc29ucy5jb20iLCJleHAiOjIwNzc3NDc5MDF9.cZk8Bil1l6Ph7OV7nKraoAp9sYr3lpEtV-hEjdwkx4k";
+        $this->cyberImpactToken = config('services.cyberimpact.token');
     }
 
     /**
@@ -204,7 +203,7 @@ class LicencesController extends Controller
 
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 			"Content-Type: application/json",
-			"Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJiZGM1ODY5ZWFlMDY5NTRmZjEyZmM0MzEyODE3MGM0MyIsImlzcyI6IkN5YmVyaW1wYWN0IEFwcGxpY2F0aW9uIiwiYXVkIjoiYXBwLmN5YmVyaW1wYWN0LmNvbSIsImlhdCI6MTc2MjIxODcwMSwibmJmIjowLCJyb2xlIjoiYWRtaW4iLCJjaWQiOjU5Mzk5LCJmbiI6Ik1hcmllIiwibG4iOiJNb3lhbCIsImVtIjoiaW5mb0BhdXJveWF1bWVkZXNzb25zLmNvbSIsInN1YiI6NzY5MjgsInVzciI6ImluZm9AYXVyb3lhdW1lZGVzc29ucy5jb20iLCJleHAiOjIwNzc3NDc5MDF9.cZk8Bil1l6Ph7OV7nKraoAp9sYr3lpEtV-hEjdwkx4k"
+			"Authorization: Bearer " . $this->cyberImpactToken
 		));
 
 		$response = curl_exec($ch);

@@ -78,7 +78,7 @@ class UtilisateursController extends Controller
             'nom' => $input['nom'],
             'prenom' => $input['prenom'],
             'email' => $input['nom_utilisateur'],
-            'password' => md5($input['mot_de_passe']),
+            'password' => bcrypt($input['mot_de_passe']),
             'id_type_usager' => $input['ddlTypeUsager'],
             'est_actif' => $input['ddlEstActif'],
         );

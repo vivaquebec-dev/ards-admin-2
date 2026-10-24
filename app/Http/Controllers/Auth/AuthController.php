@@ -12,10 +12,9 @@ use App\Licence;
 use Validator;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 
 class AuthController extends Controller
@@ -44,10 +43,6 @@ class AuthController extends Controller
 
 
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
-
-
     protected $redirectPath = '/';
 
 
@@ -68,6 +63,71 @@ class AuthController extends Controller
 
         $this->middleware('guest', ['except' => 'getLogout']);
 
+    }
+
+    public function getLogin()
+    {
+        return view('auth.login');
+    }
+
+    public function getLogout()
+    {
+        Auth::logout();
+
+        return redirect('auth/login');
+    }
+
+    public function getRegister()
+    {
+        return view('auth.register');
+    }
+
+    public function postRegister(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $user = $this->create($request->all());
+        Auth::login($user);
+
+        return redirect('/');
+    }
+
+    public function username()
+    {
+        return 'email';
+    }
+
+    protected function loginUsername()
+    {
+        return $this->username();
+    }
+
+    protected function isUsingThrottlesLoginsTrait()
+    {
+        return false;
+    }
+
+    protected function getCredentials(Request $request)
+    {
+        return $request->only($this->username(), 'password');
+    }
+
+    protected function loginPath()
+    {
+        return 'auth/login';
+    }
+
+    protected function handleUserWasAuthenticated(Request $request, $throttles)
+    {
+        if ($throttles) {
+            $this->clearLoginAttempts($request);
+        }
+
+        return redirect()->intended('/');
+    }
+
+    protected function getFailedLoginMessage()
+    {
+        return 'Ces identifiants ne correspondent pas à nos enregistrements.';
     }
 
     public function postLogin(Request $request)
@@ -92,7 +152,14 @@ class AuthController extends Controller
         $credentials = $this->getCredentials($request);
 
         if (Auth::attempt($credentials, $request->has('remember'))) {
-            if ($this->hasExpiredLicence(Auth::user())) {
+            $user = Auth::user();
+
+            if (Hash::needsRehash($user->password)) {
+                $user->password = Hash::make($request->input('password'));
+                $user->save();
+            }
+
+            if ($this->hasExpiredLicence($user)) {
                 Auth::logout();
 
                 return redirect($this->loginPath())

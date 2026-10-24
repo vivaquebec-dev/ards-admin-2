@@ -111,6 +111,18 @@ class LicencesProfController extends Controller
     }
 
     /**
+     * Remember that the authenticated teacher has acknowledged the notice.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function acceptConsent()
+    {
+        return response()
+            ->json(['accepted' => true])
+            ->cookie('licprof_consent', '1', 60 * 24 * 365);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
