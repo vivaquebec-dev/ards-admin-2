@@ -131,7 +131,7 @@ class LicencesEcoleController extends Controller
 
                 $sent = Mail::send('email.bienvenue_commission', $dataEmail, function($message)  use ($data) {
                     $message->from('info@auroyaumedessons.com', 'Au Royaume des Sons');
-					$message->attach('http://administration.auroyaumedessons.com/docs/guide-utilisateur.pdf');
+					$message->attach('https://administration.auroyaumedessons.com/docs/guide-utilisateur.pdf');
                     $message->to($data['courriel'])->subject('Confirmation de votre achat - Au Royaume des sons');
                 });
 			}

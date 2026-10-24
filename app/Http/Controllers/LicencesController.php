@@ -147,8 +147,8 @@ class LicencesController extends Controller
 
                 Mail::send('email.bienvenue_commission', $dataEmail, function($message)  use ($data){
                     $message->from('info@auroyaumedessons.com', 'Au Royaume des Sons');
-					$message->attach('http://administration.auroyaumedessons.com/docs/guide-utilisateur.pdf');
-					$message->attach('http://administration.auroyaumedessons.com/docs/informations-a-savoir.pdf');
+					$message->attach('https://administration.auroyaumedessons.com/docs/guide-utilisateur.pdf');
+					$message->attach('https://administration.auroyaumedessons.com/docs/informations-a-savoir.pdf');
                     $message->to($data['courriel'])->subject('Confirmation de votre achat - Au Royaume des sons');
                 });
 
@@ -295,7 +295,7 @@ class LicencesController extends Controller
 
         Mail::send('email.bienvenue_commission', $dataEmail, function($message) use ($dataEmail) {
 			$message->from('info@auroyaumedessons.com', 'Au Royaume des Sons');
-			$message->attach('http://administration.auroyaumedessons.com/docs/guide-utilisateur.pdf');
+			$message->attach('https://administration.auroyaumedessons.com/docs/guide-utilisateur.pdf');
 			$message->to($dataEmail['courriel'])->subject('Confirmation de votre achat - Au Royaume des sons');
 		});
 
